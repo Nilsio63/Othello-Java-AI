@@ -102,9 +102,10 @@ class MoveOptions extends ArrayList<MoveNode> {
             return;
 
         for (MoveNode node : this) {
-            MoveOptions nextOptions = new MoveOptions(node.getBoard(), color.getOpponent());
-            nextOptions.recalculate(depth - 1);
-            node.setChildren(nextOptions);
+            if (node.getChildren() == null)
+                node.setChildren(new MoveOptions(node.getBoard(), color.getOpponent()));
+
+            node.getChildren().recalculate(depth - 1);
         }
     }
 }
