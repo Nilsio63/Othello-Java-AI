@@ -1,7 +1,5 @@
 package spieler.garry;
 
-import java.util.Optional;
-
 class Player {
     private Color player;
     private long timeInMs;
@@ -39,39 +37,12 @@ class Player {
 
     private void takeMove(Move move)
             throws MoveException {
-        for (MoveNode node : currentOptions) {
-            if (node.getMove().equals(move)) {
-                currentOptions = node.getChildren();
-
-                return;
-            }
-        }
-
-        throw new MoveException();
+        currentOptions = currentOptions.takeMove(move);
     }
 
     private Move getBest() {
-        recalculate(player);
+        currentOptions.recalculate(maxSearchDepth - 1);
 
-        MoveNode best = null;
-        Optional<Integer> bestRating = Optional.empty();
-
-        for (MoveNode node : this.currentOptions) {
-            int rating = node.getRating(player);
-
-            if (!bestRating.isPresent()
-                    || bestRating.get() < rating) {
-                bestRating = Optional.of(rating);
-                best = node;
-            }
-        }
-
-        return best.getMove();
-    }
-
-    private void recalculate(Color color) {
-        for (MoveNode node : currentOptions) {
-            node.recalculate(maxSearchDepth - 1);
-        }
+        return currentOptions.getBest().getMove();
     }
 }
