@@ -49,12 +49,8 @@ class MoveOptions extends ArrayList<MoveNode> {
         throw new MoveException();
     }
 
-    public MoveNode getBest(Color player) {
-        if (this.color == player) {
-            return getMax(player);
-        }
-        else
-            return getMin(player);
+    public MoveNode getBest() {
+        return getMax(color);
     }
 
     private MoveNode getMax(Color player) {

@@ -41,12 +41,8 @@ class Player {
     }
 
     private Move getBest() {
-        recalculate(player);
-
-        return currentOptions.getBest(player).getMove();
-    }
-
-    private void recalculate(Color color) {
         currentOptions.recalculate(maxSearchDepth - 1);
+
+        return currentOptions.getBest().getMove();
     }
 }
