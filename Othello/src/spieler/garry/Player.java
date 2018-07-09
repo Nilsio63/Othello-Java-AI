@@ -28,7 +28,7 @@ class Player {
                 if (currentSearchDepth > 1)
                     currentSearchDepth--;
             }
-            else if (timeProgress * 2 < stepProgress)
+            else if (timeProgress < stepProgress * 0.75)
             {
                 if (currentSearchDepth < maxSearchDepth)
                     currentSearchDepth++;
